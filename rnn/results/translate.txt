@@ -1,0 +1,8 @@
+Input: <start> hace mucho frio aqui . <end>
+Predicted translation: it s very cold . <end>
+Input: <start> esta es mi vida . <end>
+Predicted translation: this is my life . <end>
+Input: <start> todavia estan en casa ? <end>
+Predicted translation: they re still at home . <end>
+Input: <start> trata de averiguarlo . <end>
+Predicted translation: try to figure . <end>
