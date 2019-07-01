@@ -297,53 +297,53 @@ checkpoint = tf.train.Checkpoint(optimizer=optimizer,
 # Teacher forcing - pass target word as next input
 EPOCHS = 10
 
-# for epoch in range(EPOCHS):
-#     start = time.time()
+for epoch in range(EPOCHS):
+    start = time.time()
     
-#     hidden = encoder.initialize_hidden_state()
-#     total_loss = 0
+    hidden = encoder.initialize_hidden_state()
+    total_loss = 0
     
-#     for (batch, (inp, targ)) in enumerate(dataset):
-#         loss = 0
+    for (batch, (inp, targ)) in enumerate(dataset):
+        loss = 0
         
-#         with tf.GradientTape() as tape:
-#             enc_output, enc_hidden = encoder(inp, hidden)
+        with tf.GradientTape() as tape:
+            enc_output, enc_hidden = encoder(inp, hidden)
             
-#             dec_hidden = enc_hidden
+            dec_hidden = enc_hidden
             
-#             dec_input = tf.expand_dims([target_lang.word2idx['<start>']] * BATCH_SIZE, 1)       
+            dec_input = tf.expand_dims([target_lang.word2idx['<start>']] * BATCH_SIZE, 1)       
             
-#             # Teacher forcing - feeding the target as the next input
-#             for t in range(1, targ.shape[1]):
-#                 # passing enc_output to the decoder
-#                 predictions, dec_hidden, _ = decoder(dec_input, dec_hidden, enc_output)
+            # Teacher forcing - feeding the target as the next input
+            for t in range(1, targ.shape[1]):
+                # passing enc_output to the decoder
+                predictions, dec_hidden, _ = decoder(dec_input, dec_hidden, enc_output)
                 
-#                 loss += loss_function(targ[:, t], predictions)
+                loss += loss_function(targ[:, t], predictions)
                 
-#                 # using teacher forcing
-#                 dec_input = tf.expand_dims(targ[:, t], 1)
+                # using teacher forcing
+                dec_input = tf.expand_dims(targ[:, t], 1)
         
-#         batch_loss = (loss / int(targ.shape[1]))
+        batch_loss = (loss / int(targ.shape[1]))
         
-#         total_loss += batch_loss
+        total_loss += batch_loss
         
-#         variables = encoder.variables + decoder.variables
+        variables = encoder.variables + decoder.variables
         
-#         gradients = tape.gradient(loss, variables)
+        gradients = tape.gradient(loss, variables)
         
-#         optimizer.apply_gradients(zip(gradients, variables))
+        optimizer.apply_gradients(zip(gradients, variables))
         
-#         if batch % 100 == 0:
-#             print('Epoch {} Batch {} Loss {:.4f}'.format(epoch + 1,
-#                                                          batch,
-#                                                          batch_loss.numpy()))
-#     # saving (checkpoint) the model every 2 epochs
-#     if (epoch + 1) % 2 == 0:
-#       checkpoint.save(file_prefix = checkpoint_prefix)
+        if batch % 100 == 0:
+            print('Epoch {} Batch {} Loss {:.4f}'.format(epoch + 1,
+                                                         batch,
+                                                         batch_loss.numpy()))
+    # saving (checkpoint) the model every 2 epochs
+    if (epoch + 1) % 2 == 0:
+      checkpoint.save(file_prefix = checkpoint_prefix)
     
-#     print('Epoch {} Loss {:.4f}'.format(epoch + 1,
-#                                         total_loss / N_BATCH))
-#     print('Time taken for 1 epoch {} sec\n'.format(time.time() - start))
+    print('Epoch {} Loss {:.4f}'.format(epoch + 1,
+                                        total_loss / N_BATCH))
+    print('Time taken for 1 epoch {} sec\n'.format(time.time() - start))
 
 checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 translate(u'hace mucho frio aqui.', encoder, decoder, input_lang, target_lang, max_length_input, max_length_target)
