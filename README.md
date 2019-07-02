@@ -4,6 +4,9 @@ Hey! Welcome to my respository where I have tried building a few deep learning m
 You will find the following in the respective folders in the repository:
 1. Convolutional Neural Networks (CNN): I create a simple CNN on the MNIST dataset that achieves ~98% accuracy on the test set. I use two convolution layers with max pooling and RELU, and two fully connected layers. I use Cross Entropy Loss and Adam Optimizer. Finally, I show visualizations using Tensorboard. 
 2. Recurrent Neural Networks (RNN): I create an encoder-decoder model with attention for translating Spanish sentences to English. The code is from the [Tensorflow Neural Machine Translation tutorial](https://github.com/tensorflow/nmt).
+
+![Attention](rnn/results/attention_2.png)
+
 3. Generative Adversarial Networks (GAN): I create a DCGAN to generate digits using the MNIST dataset. The Generator and Discriminator consist of convolution and convolution transpose layers. The code is from the [Tensorflow tutorial on DCGAN](https://github.com/tensorflow/tensorflow/blob/r1.13/tensorflow/contrib/eager/python/examples/generative_examples/dcgan.ipynb)
 
 ![GAN](gan/results/dcgan.gif)
